@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-mode="builder">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title id="page-title">Real Estate & Builders Official Portal</title>
+  
+  <!-- Modern real estate fonts (Outfit + Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       RESPONSIVE DESIGN TOKENS (LIGHT & DARK THEMES)
+       ========================================================================== */
+    :root {
+      /* LIGHT THEME (Default) */
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-alt: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --primary: #b45309;       /* Luxury Warm Gold / Bronze */
+      --primary-hover: #92400e;
+      --accent-green: #16a34a;   /* Clean WhatsApp Green */
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --header-bg: rgba(255, 255, 255, 0.98);
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    [data-theme="dark"] {
+      /* DARK THEME */
+      --bg-page: #0f172a;
+      --bg-card: #1e293b;
+      --bg-alt: #162032;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-light: #64748b;
+      --primary: #f59e0b;       /* Bright Luxury Gold */
+      --primary-hover: #d97706;
+      --accent-green: #22c55e;
+      --border: #334155;
+      --border-dark: #475569;
+      --header-bg: rgba(15, 23, 42, 0.98);
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 76px; /* Space for mobile sticky bottom bar */
+    }
+
+    @media (min-width: 860px) {
+      body { padding-bottom: 0; }
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       MINIMIZABLE SETTINGS BAR (SLIDES DOWN ON CLICK, HIDDEN BY DEFAULT)
+       ========================================================================== */
+    .settings-container {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
+    }
+
+    .settings-bar {
+      background: #090d16;
+      border-bottom: 2px solid var(--primary);
+      padding: 12px 4%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #ffffff;
+      font-size: 0.82rem;
+      gap: 12px;
+      flex-wrap: wrap;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, padding 0.3s ease;
+      max-height: 500px;
+      overflow: hidden;
+      opacity: 1;
+    }
+
+    .settings-bar.collapsed {
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      opacity: 0;
+      pointer-events: none;
+      border-bottom: none;
+    }
+
+    /* Floating Toggle Button (Always visible at the top) */
+    .settings-tab-trigger {
+      position: absolute;
+      top: 100%;
+      right: 20px;
+      background: #090d16;
+      border: 1px solid var(--primary);
+      border-top: none;
+      color: #f59e0b;
+      padding: 6px 14px;
+      border-radius: 0 0 8px 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      user-select: none;
+      z-index: 1001;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .settings-tab-trigger:hover {
+      background: #1e293b;
+      transform: translateY(1px);
+    }
+
+    .settings-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .settings-bar input {
+      background: #1e293b;
+      border: 1px solid #475569;
+      color: #ffffff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      outline: none;
+    }
+
+    .btn-toggle-box {
+      display: inline-flex;
+      background: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      padding: 2px;
+    }
+
+    .btn-toggle {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .btn-toggle.active {
+      background: var(--primary);
+      color: #000000;
+    }
+
+    /* ==========================================================================
+       MAIN NAVIGATION (MOBILE OPTIMIZED)
+       ========================================================================== */
+    header {
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 100;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      min-width: 0;
+    }
+
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      background: var(--primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      min-width: 0;
+    }
+
+    .logo-text h2 {
+      font-size: clamp(1rem, 3.8vw, 1.35rem);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .logo-text span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .header-wa-btn {
+      background: #25d366;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s;
+      white-space: nowrap;
+    }
+
+    .header-wa-btn:hover {
+      transform: translateY(-2px);
+      background: #22c55e;
+    }
+
+    /* ==========================================================================
+       HERO SECTION (LUXURY ARCHITECTURAL BACKGROUND + 2-COLUMN SPLIT)
+       ========================================================================== */
+    .hero {
+      position: relative;
+      padding: clamp(48px, 6vw, 85px) 5% clamp(50px, 7vw, 95px);
+      background-size: cover;
+      background-position: center right;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid var(--border);
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      transition: background-image 0.4s ease;
+    }
+
+    [data-theme="light"] .hero {
+      background-image: 
+        linear-gradient(90deg, rgba(248, 250, 252, 0.98) 0%, rgba(248, 250, 252, 0.94) 48%, rgba(248, 250, 252, 0.65) 75%, rgba(248, 250, 252, 0.3) 100%),
+        var(--hero-bg-url, url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80'));
+    }
+
+    [data-theme="dark"] .hero {
+      background-image: 
+        linear-gradient(90deg, rgba(15, 23, 42, 0.98) 0%, rgba(15, 23, 42, 0.94) 48%, rgba(15, 23, 42, 0.65) 75%, rgba(15, 23, 42, 0.3) 100%),
+        var(--hero-bg-url, url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80'));
+    }
+
+    .hero-wrapper {
+      max-width: 1250px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 36px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    /* Floating Showcase Card on Right */
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .hero-card-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .hero-card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-card-price {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .hero-card-subprice {
+      font-size: 0.8rem;
+      color: var(--accent-green);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+
+    .hero-card-loc {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 14px;
+    }
+
+    .hero-card-btn {
+      background: #25d366;
+      color: #ffffff;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 46px;
+      transition: background 0.2s;
+    }
+
+    .hero-card-btn:hover {
+      background: #16a34a;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(180, 83, 9, 0.12);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-size: clamp(0.72rem, 2.5vw, 0.8rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .hero-title {
+      font-size: clamp(1.85rem, 5.8vw, 3.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      max-width: 900px;
+    }
+
+    .hero-desc {
+      font-size: clamp(0.98rem, 2.8vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 650px;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-main {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 13px 24px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+      text-align: center;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-main:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      color: var(--text-main);
+      padding: 13px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+    }
+
+    /* ==========================================================================
+       FACTS STRIP
+       ========================================================================== */
+    .facts-strip {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 5%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .fact-item {
+      border-left: 2px solid var(--primary);
+      padding-left: 12px;
+    }
+
+    .fact-number {
+      font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .fact-label {
+      font-size: 0.74rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    /* ==========================================================================
+       SECTIONS & CARDS (MOBILE FIRST)
+       ========================================================================== */
+    .section {
+      padding: clamp(45px, 6vw, 75px) 5%;
+      max-width: 1250px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 30px;
+    }
+
+    .section-tag {
+      font-size: 0.76rem;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4.2vw, 2.2rem);
+      letter-spacing: -0.02em;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+
+    .card-photo {
+      height: 210px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .card-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-price {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .card-subprice {
+      font-size: 0.8rem;
+      color: var(--accent-green);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .card-address {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-bottom: 14px;
+    }
+
+    .card-details {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .card-wa-btn {
+      margin-top: auto;
+      background: #25d366;
+      color: #ffffff;
+      padding: 13px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      min-height: 48px;
+      transition: background 0.2s;
+    }
+
+    .card-wa-btn:hover {
+      background: #16a34a;
+    }
+
+    /* Mode Switching Visibility */
+    .builder-only { display: block; }
+    .agency-only { display: none; }
+    [data-mode="agency"] .builder-only { display: none; }
+    [data-mode="agency"] .agency-only { display: block; }
+
+    /* Builder Tool: Installment Calculator */
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: clamp(20px, 4vw, 38px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+    }
+
+    .calc-slider {
+      margin-bottom: 18px;
+    }
+
+    .calc-slider label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .calc-slider input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      height: 8px;
+      touch-action: pan-y;
+    }
+
+    .calc-result-box {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .calc-stat {
+      margin-bottom: 16px;
+    }
+
+    .calc-stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .calc-stat-value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    /* Agency Tool: Instant Plot Valuation */
+    .val-form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 20px 0 24px;
+    }
+
+    .val-field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .val-field select, .val-field input {
+      width: 100%;
+      padding: 12px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      border-radius: 6px;
+      font-size: 0.92rem;
+      outline: none;
+      min-height: 48px;
+    }
+
+    /* Clean Footer */
+    footer {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      padding: 40px 5% 50px;
+      text-align: center;
+    }
+
+    .footer-company-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-copy {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .footer-credits {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    /* Mobile Fixed WhatsApp & Call Bar (With iPhone Notch Padding) */
+    .mobile-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 10px 14px;
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      z-index: 999;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.12);
+    }
+
+    .mobile-btn-call {
+      flex: 1;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobile-btn-wa {
+      flex: 2;
+      background: #25d366;
+      color: #ffffff;
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 48px;
+    }
+
+    /* Filter Tabs for Properties Grid */
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* Trust & Legal Protection Grid */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .trust-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 22px;
+      text-align: left;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .trust-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .trust-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .trust-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       MEDIA QUERIES FOR DEEP RESPONSIVE OPTIMIZATION
+       ========================================================================== */
+    @media (max-width: 860px) {
+      .hero-card-col { display: none; }
+      .hero-wrapper { grid-template-columns: 1fr; gap: 0; }
+      .hero { padding: 48px 5% 42px; min-height: auto; }
+      .hero-content { max-width: 100%; }
+      .trust-grid { grid-template-columns: 1fr; gap: 16px; }
+      .nav-links { display: none; }
+      .facts-strip { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .calc-grid { grid-template-columns: 1fr; gap: 24px; }
+      .val-form-grid { grid-template-columns: 1fr; }
+      .mobile-bar { display: flex; }
+      .header-wa-btn { display: none; } /* Kept clean because bottom mobile bar has WhatsApp */
+      .hero-actions { flex-direction: column; }
+      .hero-actions a { width: 100%; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: clamp(1.65rem, 6.8vw, 2.1rem); }
+      .hero-desc { font-size: 0.95rem; }
+      .hero-actions { gap: 10px; }
+      .btn-main, .btn-secondary { padding: 13px 18px; font-size: 0.9rem; }
+      .facts-strip { grid-template-columns: 1fr 1fr; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .settings-bar { flex-direction: column; align-items: flex-start; }
+      .settings-group { width: 100%; }
+      .settings-bar input { width: 100% !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Minimizable Settings Bar (Hidden by Default) -->
+  <div class="settings-container">
+    <div id="settings-panel" class="settings-bar collapsed">
+      <div class="settings-group">
+        <span style="background: rgba(255,255,255,0.15); padding: 3px 8px; border-radius: 4px; font-weight: 700;">LIVE DEMO CONTROLS</span>
+        <span>Company: <strong id="top-bar-company" style="color: #f59e0b;">Abraaj Gold Developers</strong></span>
+      </div>
+
+      <div class="settings-group">
+        <!-- Business Mode -->
+        <div class="btn-toggle-box">
+          <button id="mode-btn-builder" class="btn-toggle active" onclick="setBusinessMode('builder')">🏗️ Builders (Installments)</button>
+          <button id="mode-btn-agency" class="btn-toggle" onclick="setBusinessMode('agency')">🏠 Real Estate Agents (Cash Plots)</button>
+        </div>
+
+        <!-- Theme: Light vs Dark -->
+        <div class="btn-toggle-box">
+          <button id="theme-btn-light" class="btn-toggle active" onclick="setTheme('light')">☀️ Light Theme</button>
+          <button id="theme-btn-dark" class="btn-toggle" onclick="setTheme('dark')">🌙 Dark Theme</button>
+        </div>
+
+        <!-- Live Inputs -->
+        <input type="text" id="input-company" placeholder="Company Name" value="Abraaj Gold Developers" oninput="changeCompanyName(this.value)" style="width: 170px;">
+        <input type="text" id="input-city" placeholder="City" value="Karachi" oninput="changeCity(this.value)" style="width: 80px;">
+        <input type="text" id="input-phone" placeholder="WhatsApp Number" value="923218218521" oninput="changePhone(this.value)" style="width: 120px;">
+      </div>
+    </div>
+
+    <!-- The Minimizer Click Toggle (^ / v) -->
+    <div id="settings-trigger" class="settings-tab-trigger" onclick="toggleSettingsBar()">
+      <span>⚙️ Demo Settings</span>
+      <span id="trigger-arrow">▾</span>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header>
+    <a href="#" class="logo-area">
+      <div class="logo-badge" id="logo-badge-icon">AG</div>
+      <div class="logo-text">
+        <h2 id="header-company-name">Abraaj Gold Developers</h2>
+        <span id="header-subtitle">Builders & Developers • Karachi</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#properties" id="nav-prop-title">Featured Properties</a></li>
+      <li class="builder-only"><a href="#calculator">Installment Plan</a></li>
+      <li class="agency-only"><a href="#valuation">Plot Valuation</a></li>
+      <li><a href="#overseas">Overseas Buyers</a></li>
+    </ul>
+    <div>
+      <a href="#" id="header-wa-link" class="header-wa-btn" target="_blank">
+        <span>💬 Chat on WhatsApp</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section (Luxury Split Layout) -->
+  <section class="hero">
+    <div class="hero-wrapper">
+      <div class="hero-content">
+        <h1 class="hero-title" id="hero-main-title">
+          Exceptional Living in <span id="hero-city-text" style="color: var(--primary);">Karachi</span>
+        </h1>
+        <p class="hero-desc" id="hero-desc-text">
+          Direct developer prices with easy installment plans. No middleman charges. Official booking and allotment with complete legal protection.
+        </p>
+        <div class="hero-actions">
+          <a href="#calculator" class="btn-main builder-only">Calculate Monthly Installment</a>
+          <a href="#valuation" class="btn-main agency-only">Check Free Plot Price</a>
+          <a href="#" id="hero-wa-link" class="btn-secondary" target="_blank">Inquire on WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Right Column: Floating Flagship Showcase Card -->
+      <div class="hero-card-col">
+        <div class="hero-card">
+          <div class="hero-card-img" id="hero-showcase-img" style="background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80');"></div>
+          <div class="hero-card-body">
+            <div class="hero-card-price" id="hero-showcase-price">PKR 1.85 Crore</div>
+            <div class="hero-card-subprice" id="hero-showcase-subprice">20% Down Payment • 36-Month Plan</div>
+            <div class="hero-card-title" id="hero-showcase-title">3-Bed Executive Penthouse Suites</div>
+            <div class="hero-card-loc" id="hero-showcase-loc">📍 Main Boulevard, Prime Sector</div>
+            <a href="#" id="hero-card-wa" class="hero-card-btn" target="_blank">
+              <span>💬 Inquire on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Facts Bar -->
+  <div class="facts-strip">
+    <div class="fact-item">
+      <div class="fact-number">100%</div>
+      <div class="fact-label">Verified Land Titles</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-number">0%</div>
+      <div class="fact-label">Hidden Commission</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-number" id="fact-plan-num">36 Mos</div>
+      <div class="fact-label" id="fact-plan-lbl">Installment Payment Plan</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-number">Instant</div>
+      <div class="fact-label">WhatsApp Customer Support</div>
+    </div>
+  </div>
+
+  <!-- Properties Grid -->
+  <section class="section" id="properties">
+    <div class="section-header">
+      <span class="section-tag" id="prop-section-tag">Direct Inventory</span>
+      <h2 class="section-title" id="prop-section-title">Featured Real Estate Opportunities</h2>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="filter-tabs" id="prop-filter-tabs">
+      <button class="filter-btn active" onclick="filterCategory('all', this)">All Opportunities</button>
+      <button class="filter-btn" onclick="filterCategory('apartments', this)" id="tab-apartments">Apartments</button>
+      <button class="filter-btn" onclick="filterCategory('villas', this)" id="tab-villas">Villas & Houses</button>
+      <button class="filter-btn" onclick="filterCategory('commercial', this)" id="tab-commercial">Commercial</button>
+      <button class="filter-btn" onclick="filterCategory('plots', this)" id="tab-plots">Plots & Land</button>
+    </div>
+
+    <div class="cards-grid" id="cards-container">
+      <!-- Injected by JavaScript -->
+    </div>
+  </section>
+
+  <!-- BUILDER ONLY: Simple Installment Calculator -->
+  <section class="section builder-only" id="calculator">
+    <div class="tool-card">
+      <div class="calc-grid">
+        <div>
+          <span class="section-tag">Payment Calculator</span>
+          <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Calculate Your Monthly Installment</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px;">
+            Choose your price, down payment, and plan to see your exact monthly payment before messaging our team.
+          </p>
+
+          <div class="calc-slider">
+            <label>
+              <span>Total Unit Price:</span>
+              <strong id="lbl-price" style="color: var(--primary);">PKR 1.50 Crore</strong>
+            </label>
+            <input type="range" id="rng-price" min="5000000" max="50000000" step="500000" value="15000000" oninput="calculatePlan()">
+          </div>
+
+          <div class="calc-slider">
+            <label>
+              <span>Down Payment:</span>
+              <strong id="lbl-down" style="color: var(--primary);">20%</strong>
+            </label>
+            <input type="range" id="rng-down" min="10" max="40" step="5" value="20" oninput="calculatePlan()">
+          </div>
+
+          <div class="calc-slider">
+            <label>
+              <span>Installment Duration:</span>
+              <strong id="lbl-months" style="color: var(--primary);">36 Months (3 Years)</strong>
+            </label>
+            <input type="range" id="rng-months" min="12" max="48" step="6" value="36" oninput="calculatePlan()">
+          </div>
+        </div>
+
+        <div class="calc-result-box">
+          <div class="calc-stat">
+            <div class="calc-stat-label">Down Payment Required</div>
+            <div class="calc-stat-value" id="res-down">PKR 30,00,000</div>
+          </div>
+          <div class="calc-stat">
+            <div class="calc-stat-label">Monthly Installment</div>
+            <div class="calc-stat-value" id="res-monthly" style="color: var(--accent-green);">PKR 2,91,667 /mo</div>
+          </div>
+          <div class="calc-stat">
+            <div class="calc-stat-label">On Possession Payment (15%)</div>
+            <div class="calc-stat-value" id="res-possession" style="font-size: 1.3rem; color: var(--text-light);">PKR 22,50,000</div>
+          </div>
+          <a href="#" id="calc-wa-btn" class="btn-main" style="text-align: center; margin-top: 10px;" target="_blank">
+            Lock This Plan on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENCY ONLY: Instant Free Plot Valuation -->
+  <section class="section agency-only" id="valuation">
+    <div class="tool-card" style="text-align: center;">
+      <span class="section-tag">Direct Cash Deals</span>
+      <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Get a Free Market Price for Your Plot</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 600px; margin: 0 auto;">
+        Want to sell your plot or file? Get a quick price evaluation and connect with ready cash buyers within 2 hours.
+      </p>
+
+      <div class="val-form-grid">
+        <div class="val-field" style="text-align: left;">
+          <label>Property Type</label>
+          <select id="val-type">
+            <option>Residential Plot</option>
+            <option>Commercial Plot</option>
+            <option>File / Allocation</option>
+            <option>Constructed House</option>
+          </select>
+        </div>
+        <div class="val-field" style="text-align: left;">
+          <label>Size</label>
+          <select id="val-size">
+            <option>125 Sq. Yards (5 Marla)</option>
+            <option>250 Sq. Yards (10 Marla)</option>
+            <option>500 Sq. Yards (1 Kanal)</option>
+            <option>1000 Sq. Yards (2 Kanal)</option>
+          </select>
+        </div>
+        <div class="val-field" style="text-align: left;">
+          <label>Phase / Sector</label>
+          <input type="text" id="val-sector" placeholder="e.g. Phase 6, Block C">
+        </div>
+      </div>
+
+      <button onclick="sendValuationToWhatsApp()" class="btn-main" style="border: none; cursor: pointer; padding: 14px 30px; width: 100%; max-width: 380px;">
+        Request Cash Price on WhatsApp
+      </button>
+    </div>
+  </section>
+
+  <!-- Buyer Protection Guarantee Section (Reverse Engineered from Sotheby's & Emaar) -->
+  <section class="section" style="text-align: center; background: var(--bg-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div style="max-width: 1050px; margin: 0 auto;">
+      <span class="section-tag">Buyer Protection Guarantee</span>
+      <h2 style="font-size: 2rem; margin-bottom: 10px;">How We Protect Your Property Deal</h2>
+      <p style="color: var(--text-muted); font-size: 0.98rem; max-width: 620px; margin: 0 auto 32px;">
+        Every project and plot is verified by our legal team so you never face legal disputes, double-selling, or hidden commission fees.
+      </p>
+
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon">📋</div>
+          <div class="trust-title">1. Legal Title Verification</div>
+          <div class="trust-desc">
+            We inspect master layout approvals, NOC certificates (SBCA/CDA/LDA), and official allotment letters directly with the housing authority.
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">🤝</div>
+          <div class="trust-title">2. Direct Official Pricing</div>
+          <div class="trust-desc">
+            Direct developer booking and real owner resale rates. Zero unauthorized dealer markups, zero hidden documentation fees.
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">🔒</div>
+          <div class="trust-title">3. Safe Biometric Transfer</div>
+          <div class="trust-desc">
+            100% legal transfer with biometric confirmation, official bank pay orders, and immediate issuance of computerised transfer receipt.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overseas Section -->
+  <section class="section" id="overseas" style="text-align: center;">
+    <div style="max-width: 750px; margin: 0 auto;">
+      <span class="section-tag">Overseas Pakistanis</span>
+      <h2 style="font-size: 2rem; margin-bottom: 12px;">Overseas Pakistani Investor Help Desk</h2>
+      <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 24px;">
+        Living in the UK, UAE, USA, or Canada? Buy plots and luxury homes safely with official embassy verification, direct Roshan Digital Account (RDA) bank transfers, and video tour inspections.
+      </p>
+      <a href="#" id="overseas-wa-link" class="btn-main" style="display: inline-block;" target="_blank">
+        Chat with Overseas Sales Desk
+      </a>
+    </div>
+  </section>
+
+  <!-- GUARANTEED DYNAMIC FOOTER -->
+  <footer>
+    <div class="footer-company-title" id="foot-company-title">Abraaj Gold Developers</div>
+    <div class="footer-copy" id="footer-all-rights">
+      © 2026 <strong id="foot-target-name">Abraaj Gold Developers</strong>. All Rights Reserved.
+    </div>
+    <div class="footer-credits">
+      Official Real Estate Web Portal
+    </div>
+  </footer>
+
+  <!-- Mobile Fixed WhatsApp & Call Bar -->
+  <div class="mobile-bar">
+    <a href="#" id="mobile-call-link" class="mobile-btn-call">📞 Call Office</a>
+    <a href="#" id="mobile-wa-link" class="mobile-btn-wa" target="_blank">
+      <span>💬 Chat on WhatsApp</span>
+    </a>
+  </div>
+
+  <script>
+    // State variables
+    let companyName = "Abraaj Gold Developers";
+    let cityName = "Karachi";
+    let phoneNumber = "923218218521";
+    let currentMode = "builder"; // "builder" or "agency"
+    let currentTheme = "light";  // "light" or "dark"
+    let isSettingsOpen = false;  // Minimized by default!
+    let currentCategory = "all"; // Category filter state
+
+    // Toggle Settings Bar Minimize/Maximize
+    function toggleSettingsBar() {
+      const panel = document.getElementById('settings-panel');
+      const arrow = document.getElementById('trigger-arrow');
+      isSettingsOpen = !isSettingsOpen;
+
+      if (isSettingsOpen) {
+        panel.classList.remove('collapsed');
+        arrow.innerText = '▲'; // Up arrow when open
+      } else {
+        panel.classList.add('collapsed');
+        arrow.innerText = '▾'; // Down arrow when closed
+      }
+    }
+
+    // Property Inventory for Builders (Off-plan on installments)
+    const BUILDER_PROPERTIES = [
+      {
+        title: "3-Bed Executive Penthouse Suites",
+        price: "PKR 1.85 Crore",
+        subprice: "20% Down Payment • 36 Months Plan",
+        location: "Clifton Block 9, Seaside Avenue",
+        category: "apartments",
+        img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80",
+        specs: ["3 Beds", "3 Baths", "2,250 Sq. Ft."],
+        message: "Hello, please send the official brochure and installment schedule for 3-Bed Executive Penthouse Suites."
+      },
+      {
+        title: "Commercial Retail Showrooms",
+        price: "PKR 95 Lakhs",
+        subprice: "Easy Monthly Payments • Possession 2027",
+        location: "Main Commercial Avenue",
+        category: "commercial",
+        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=700&q=80",
+        specs: ["Ground Floor", "2 Car Parking", "650 Sq. Ft."],
+        message: "Hello, please send booking details for Commercial Retail Showrooms."
+      },
+      {
+        title: "Luxury 400 Sq. Yds Signature Villa",
+        price: "PKR 2.45 Crore",
+        subprice: "Gated Community • 2.5 Years Plan",
+        location: "Prime Gated Sector, 24/7 Security",
+        category: "villas",
+        img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80",
+        specs: ["4 Master Beds", "Private Lawn", "400 Sq. Yds"],
+        message: "Hello, please send floor plans and price details for Luxury 400 Sq. Yds Signature Villa."
+      },
+      {
+        title: "2-Bed Modern Smart Apartments",
+        price: "PKR 78 Lakhs",
+        subprice: "Only PKR 45,000 / month • 4-Year Plan",
+        location: "Boulevard Heights, Central Sector",
+        category: "apartments",
+        img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=700&q=80",
+        specs: ["2 Bedrooms", "American Kitchen", "1,100 Sq. Ft."],
+        message: "Hello, please send the 4-year installment plan for 2-Bed Modern Smart Apartments."
+      }
+    ];
+
+    // Property Inventory for Real Estate Agents (Cash plots and ready homes)
+    const AGENCY_PROPERTIES = [
+      {
+        title: "500 Sq. Yards Ready Plot (Park Facing)",
+        price: "PKR 4.20 Crore",
+        subprice: "100% Clear Title • Direct Cash Transfer",
+        location: "DHA Phase 6, Prime Residential Street",
+        category: "plots",
+        img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=700&q=80",
+        specs: ["500 Sq. Yds", "Park Facing", "Clean Sub-Lease"],
+        message: "Assalam-o-Alaikum, I am a cash buyer for 500 Sq. Yds plot in DHA Phase 6."
+      },
+      {
+        title: "Brand New 1 Kanal Designer House",
+        price: "PKR 7.80 Crore",
+        subprice: "Direct from Owner • Ready to Move In",
+        location: "DHA Phase 5 / Clifton Sector",
+        category: "villas",
+        img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=700&q=80",
+        specs: ["5 Bedrooms", "2 Modern Kitchens", "3 Car Porch"],
+        message: "Assalam-o-Alaikum, please arrange a visit for Brand New 1 Kanal Designer House."
+      },
+      {
+        title: "125 Sq. Yards Allocation File (Ready Transfer)",
+        price: "PKR 38 Lakhs",
+        subprice: "Official NDC Ready • Direct Transfer",
+        location: "Sector C, Fast Developing Block",
+        category: "plots",
+        img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=700&q=80",
+        specs: ["125 Sq. Yds", "Road Work Started", "NDC Ready"],
+        message: "Assalam-o-Alaikum, I want to purchase 125 Sq. Yds allocation file at direct owner price."
+      },
+      {
+        title: "Corner Commercial Plaza Unit",
+        price: "PKR 1.65 Crore",
+        subprice: "Rental Income PKR 120,000/mo Active",
+        location: "Commercial Center, Main Boulevard",
+        category: "commercial",
+        img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=700&q=80",
+        specs: ["First Floor", "Main Road View", "900 Sq. Ft."],
+        message: "Assalam-o-Alaikum, please share rental agreement and details for Corner Commercial Plaza Unit."
+      }
+    ];
+
+    // Theme Switcher (Light vs Dark)
+    function setTheme(theme) {
+      currentTheme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      document.getElementById('theme-btn-light').className = `btn-toggle ${theme === 'light' ? 'active' : ''}`;
+      document.getElementById('theme-btn-dark').className = `btn-toggle ${theme === 'dark' ? 'active' : ''}`;
+    }
+
+    // Category Filter Handler
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) {
+        btn.classList.add('active');
+      } else {
+        const first = document.querySelector('.filter-btn');
+        if (first) first.classList.add('active');
+      }
+      renderCards();
+    }
+
+    // Business Mode Switcher (Builders vs Real Estate Agents)
+    function setBusinessMode(mode) {
+      currentMode = mode;
+      document.documentElement.setAttribute('data-mode', mode);
+      document.getElementById('mode-btn-builder').className = `btn-toggle ${mode === 'builder' ? 'active' : ''}`;
+      document.getElementById('mode-btn-agency').className = `btn-toggle ${mode === 'agency' ? 'active' : ''}`;
+
+      const heroEl = document.querySelector('.hero');
+      currentCategory = "all";
+
+      // Reset filter buttons active state to 'All'
+      document.querySelectorAll('.filter-btn').forEach((b, idx) => {
+        if (idx === 0) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+
+      if (mode === 'builder') {
+        const sub = document.getElementById('header-subtitle');
+        if (sub) sub.innerText = `Builders & Developers • ${cityName}`;
+        const title = document.getElementById('hero-main-title');
+        if (title) title.innerHTML = `Exceptional Living in <span id="hero-city-text" style="color: var(--primary);">${cityName}</span>`;
+        const desc = document.getElementById('hero-desc-text');
+        if (desc) desc.innerText = "Direct developer booking with flexible 3-year installment plans. Official allotment with complete legal protection.";
+        const fnum = document.getElementById('fact-plan-num');
+        if (fnum) fnum.innerText = "36 Mos";
+        const flbl = document.getElementById('fact-plan-lbl');
+        if (flbl) flbl.innerText = "Installment Payment Plan";
+        const ptag = document.getElementById('prop-section-tag');
+        if (ptag) ptag.innerText = "Direct Off-Plan Projects";
+        const ptitle = document.getElementById('prop-section-title');
+        if (ptitle) ptitle.innerText = "Signature Developments on Installments";
+        const ntitle = document.getElementById('nav-prop-title');
+        if (ntitle) ntitle.innerText = "Projects";
+
+        // Dynamic Hero Background & Card for Builder
+        if (heroEl) heroEl.style.setProperty('--hero-bg-url', "url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80')");
+        const scImg = document.getElementById('hero-showcase-img');
+        if (scImg) scImg.style.backgroundImage = "url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=700&q=80')";
+        const scPrice = document.getElementById('hero-showcase-price');
+        if (scPrice) scPrice.innerText = "PKR 1.85 Crore";
+        const scSub = document.getElementById('hero-showcase-subprice');
+        if (scSub) scSub.innerText = "20% Down Payment • 36-Month Plan";
+        const scTitle = document.getElementById('hero-showcase-title');
+        if (scTitle) scTitle.innerText = "3-Bed Executive Penthouse Suites";
+        const scLoc = document.getElementById('hero-showcase-loc');
+        if (scLoc) scLoc.innerText = `📍 Main Boulevard, ${cityName}`;
+        const scWa = document.getElementById('hero-card-wa');
+        if (scWa) scWa.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(`Assalam-o-Alaikum ${companyName}, I want details and booking plan for 3-Bed Executive Penthouse Suites.`)}`;
+      } else {
+        const sub = document.getElementById('header-subtitle');
+        if (sub) sub.innerText = `Real Estate & Property Advisors • ${cityName}`;
+        const title = document.getElementById('hero-main-title');
+        if (title) title.innerHTML = `Exclusive Properties in <span id="hero-city-text" style="color: var(--primary);">${cityName}</span>`;
+        const desc = document.getElementById('hero-desc-text');
+        if (desc) desc.innerText = "Verified plots, luxury villas, and commercial investments in top housing societies. Direct owner deals with complete legal transfer.";
+        const fnum = document.getElementById('fact-plan-num');
+        if (fnum) fnum.innerText = "Direct";
+        const flbl = document.getElementById('fact-plan-lbl');
+        if (flbl) flbl.innerText = "Cash Deals & Transfers";
+        const ptag = document.getElementById('prop-section-tag');
+        if (ptag) ptag.innerText = "Verified Resale Properties";
+        const ptitle = document.getElementById('prop-section-title');
+        if (ptitle) ptitle.innerText = "Ready Plots & Luxury Homes for Sale";
+        const ntitle = document.getElementById('nav-prop-title');
+        if (ntitle) ntitle.innerText = "Properties";
+
+        // Dynamic Hero Background & Card for Real Estate Agent
+        if (heroEl) heroEl.style.setProperty('--hero-bg-url', "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80')");
+        const scImg = document.getElementById('hero-showcase-img');
+        if (scImg) scImg.style.backgroundImage = "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=80')";
+        const scPrice = document.getElementById('hero-showcase-price');
+        if (scPrice) scPrice.innerText = "PKR 4.20 Crore";
+        const scSub = document.getElementById('hero-showcase-subprice');
+        if (scSub) scSub.innerText = "100% Clear Title • Direct Transfer";
+        const scTitle = document.getElementById('hero-showcase-title');
+        if (scTitle) scTitle.innerText = "500 Sq. Yards Luxury Plot (Park Facing)";
+        const scLoc = document.getElementById('hero-showcase-loc');
+        if (scLoc) scLoc.innerText = `📍 DHA Phase 6, ${cityName}`;
+        const scWa = document.getElementById('hero-card-wa');
+        if (scWa) scWa.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(`Assalam-o-Alaikum ${companyName}, I am interested in purchasing the 500 Sq. Yards Luxury Plot in DHA.`)}`;
+      }
+
+      renderCards();
+      syncAllElements();
+    }
+
+    function renderCards() {
+      const container = document.getElementById('cards-container');
+      const fullList = (currentMode === 'builder') ? BUILDER_PROPERTIES : AGENCY_PROPERTIES;
+      const list = (currentCategory === 'all') 
+        ? fullList 
+        : fullList.filter(item => item.category === currentCategory);
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; color: var(--text-muted); background: var(--bg-card); border: 1px dashed var(--border); border-radius: 12px;">
+            <p style="font-size: 1.05rem; font-weight: 600; margin-bottom: 12px;">No listings currently available in this specific category.</p>
+            <button class="btn-main" onclick="filterCategory('all', null)" style="margin: 0 auto; display: inline-block;">View All Opportunities</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(item => `
+        <div class="card">
+          <div class="card-photo" style="background-image: url('${item.img}')"></div>
+          <div class="card-content">
+            <div class="card-price">${item.price}</div>
+            <div class="card-subprice">${item.subprice}</div>
+            <h3 class="card-name">${item.title}</h3>
+            <div class="card-address">📍 ${item.location}</div>
+            <div class="card-details">
+              ${item.specs.map(s => `<span>${s}</span>`).join(' • ')}
+            </div>
+            <a href="https://wa.me/${phoneNumber}?text=${encodeURIComponent(`Assalam-o-Alaikum ${companyName}! ${item.message}`)}" class="card-wa-btn" target="_blank">
+              <span>💬 Inquire on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // CENTRAL FUNCTION: SYNCS ALL TEXT INCLUDING FOOTER EVERY TIME
+    function syncAllElements() {
+      // 1. Top bar & Page Title
+      const topBarComp = document.getElementById('top-bar-company');
+      if (topBarComp) topBarComp.innerText = companyName;
+
+      const headComp = document.getElementById('header-company-name');
+      if (headComp) headComp.innerText = companyName;
+
+      const pageTitle = document.getElementById('page-title');
+      if (pageTitle) pageTitle.innerText = `${companyName} | Official Real Estate Portal`;
+
+      const heroCity = document.getElementById('hero-city-text');
+      if (heroCity) heroCity.innerText = cityName;
+
+      // 2. Generate 2-Letter Logo
+      const words = companyName.trim().split(/\s+/);
+      const initials = (words.length > 1) ? (words[0][0] + words[1][0]) : words[0].substring(0, 2);
+      const logoBadge = document.getElementById('logo-badge-icon');
+      if (logoBadge) logoBadge.innerText = initials.toUpperCase();
+
+      // 3. FOOTER SYNC (100% RELIABLE DYNAMIC SYNC)
+      const footCompanyTitle = document.getElementById('foot-company-title');
+      if (footCompanyTitle) footCompanyTitle.innerText = companyName;
+
+      const footTargetName = document.getElementById('foot-target-name');
+      if (footTargetName) footTargetName.innerText = companyName;
+
+      const footerCopy = document.getElementById('footer-all-rights');
+      if (footerCopy) {
+        footerCopy.innerHTML = `© ${new Date().getFullYear()} <strong id="foot-target-name">${companyName}</strong>. All Rights Reserved.`;
+      }
+
+      // 4. WhatsApp Links
+      const greeting = encodeURIComponent(`Assalam-o-Alaikum ${companyName}, I am visiting your official website.`);
+      const headWa = document.getElementById('header-wa-link');
+      if (headWa) headWa.href = `https://wa.me/${phoneNumber}?text=${greeting}`;
+
+      const heroWa = document.getElementById('hero-wa-link');
+      if (heroWa) heroWa.href = `https://wa.me/${phoneNumber}?text=${greeting}`;
+
+      const mobileWa = document.getElementById('mobile-wa-link');
+      if (mobileWa) mobileWa.href = `https://wa.me/${phoneNumber}?text=${greeting}`;
+
+      const mobileCall = document.getElementById('mobile-call-link');
+      if (mobileCall) mobileCall.href = `tel:+${phoneNumber}`;
+
+      const overseasWa = document.getElementById('overseas-wa-link');
+      if (overseasWa) overseasWa.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(`Assalam-o-Alaikum ${companyName}, I am an overseas Pakistani interested in verified properties in ${cityName}.`)}`;
+
+      const heroCardWa = document.getElementById('hero-card-wa');
+      if (heroCardWa) {
+        const itemTitle = document.getElementById('hero-showcase-title') ? document.getElementById('hero-showcase-title').innerText : 'Featured Property';
+        heroCardWa.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(`Assalam-o-Alaikum ${companyName}, I want details and booking plan for ${itemTitle}.`)}`;
+      }
+
+      calculatePlan();
+    }
+
+    // Simple typing handlers
+    function changeCompanyName(val) {
+      companyName = val.trim() || "Abraaj Gold Developers";
+      syncAllElements();
+    }
+
+    function changeCity(val) {
+      cityName = val.trim() || "Karachi";
+      syncAllElements();
+      setBusinessMode(currentMode);
+    }
+
+    function changePhone(val) {
+      phoneNumber = val.replace(/\D/g, '') || "923218218521";
+      syncAllElements();
+    }
+
+    function formatCurrency(num) {
+      if (num >= 10000000) return `PKR ${(num / 10000000).toFixed(2)} Crore`;
+      if (num >= 100000) return `PKR ${(num / 100000).toFixed(2)} Lakhs`;
+      return `PKR ${num.toLocaleString()}`;
+    }
+
+    // Installment Calculator Math
+    function calculatePlan() {
+      const price = parseFloat(document.getElementById('rng-price').value);
+      const downPct = parseFloat(document.getElementById('rng-down').value);
+      const months = parseFloat(document.getElementById('rng-months').value);
+
+      document.getElementById('lbl-price').innerText = formatCurrency(price);
+      document.getElementById('lbl-down').innerText = `${downPct}%`;
+      document.getElementById('lbl-months').innerText = `${months} Months (${(months/12).toFixed(1)} Years)`;
+
+      const downAmount = price * (downPct / 100);
+      const possessionAmount = price * 0.15;
+      const installmentBalance = price - downAmount - possessionAmount;
+      const monthlyAmount = Math.round(installmentBalance / months);
+
+      document.getElementById('res-down').innerText = `PKR ${Math.round(downAmount).toLocaleString()}`;
+      document.getElementById('res-monthly').innerText = `PKR ${monthlyAmount.toLocaleString()} /mo`;
+      document.getElementById('res-possession').innerText = `PKR ${Math.round(possessionAmount).toLocaleString()}`;
+
+      const message = encodeURIComponent(`Assalam-o-Alaikum ${companyName}, I calculated an installment plan on your website: Total Price: ${formatCurrency(price)}, Down Payment: PKR ${Math.round(downAmount).toLocaleString()}, Monthly: PKR ${monthlyAmount.toLocaleString()}/mo for ${months} months. Please confirm availability.`);
+      document.getElementById('calc-wa-btn').href = `https://wa.me/${phoneNumber}?text=${message}`;
+    }
+
+    // Plot Valuation Request
+    function sendValuationToWhatsApp() {
+      const type = document.getElementById('val-type').value;
+      const size = document.getElementById('val-size').value;
+      const sector = document.getElementById('val-sector').value.trim() || "Prime Sector";
+
+      const message = encodeURIComponent(`Assalam-o-Alaikum ${companyName}! I want a free price evaluation for my property:\n• Type: ${type}\n• Size: ${size}\n• Sector/Block: ${sector}\n• City: ${cityName}\nPlease share current market price and active cash buyers.`);
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    }
+
+    // Fast Leads Directory for 1-Click Short Links (?1, ?id=1, ?L01, ?id=L01)
+    const LEADS_MAP = {"1": ["Three Realtors and Builders", "Karachi", "923213497497", "agency"], "2": ["HomeNet Real Estate", "Karachi", "923332107730", "agency"], "3": ["BINFEROZ Enterprises (Real Estate & Builders)", "Karachi", "923308166611", "builder"], "4": ["Sarim Raza Estate and Builders", "Karachi", "923363684155", "agency"], "5": ["Jinnah Builders & Real-Estate", "Karachi", "923002297006", "agency"], "6": ["Ross Realtors & Builders", "Karachi", "923002460777", "agency"], "7": ["Siraat Real Estate And Builders", "Karachi", "923212267771", "builder"], "8": ["ROYAL HOMES Real Estate & Builders", "Karachi", "923000267234", "agency"], "9": ["GFS Builders & Developers (Gulshan Branch)", "Karachi", "923112786956", "builder"], "10": ["AHH Brothers Builders & Developers", "Karachi", "923706841049", "builder"], "11": ["Lenaar Group of Companies Pvt Ltd", "Karachi", "923183000660", "builder"], "12": ["AL HASSAN ESTATE & Construction Contractor", "Karachi", "923360803525", "builder"], "13": ["Matloob Real Estate", "Karachi", "923122688849", "agency"], "14": ["Paragon Estate", "Karachi", "923333505153", "agency"], "15": ["AA Builders Developers & Real Estate", "Karachi", "923118050064", "builder"], "16": ["Anaya Estate Builders", "Karachi", "923212954657", "agency"], "17": ["Hafiz Real Estate & Builders", "Karachi", "923320234161", "agency"], "18": ["M.A Real Estates & Builders", "Karachi", "923101158885", "agency"], "19": ["92 Al Qaswa Builders & Developers", "Karachi", "923332128661", "builder"], "20": ["3G Builders & Developers", "Karachi", "923111911116", "builder"], "21": ["A.E & H Builders", "Karachi", "923219248416", "builder"], "22": ["Abraaj Gold Builders & Developers", "Karachi", "923218700141", "builder"], "23": ["Ahmed Mustufa Builders", "Karachi", "923332286266", "builder"], "24": ["Al-Kafeel Builders & Developer", "Karachi", "923219298110", "builder"], "25": ["Al-Khalid Builders & Developers", "Karachi", "923212435800", "builder"], "26": ["Al-Mukhtar Builders & Developers", "Karachi", "923219211822", "builder"], "27": ["Al-Qasar Builders & Developers (Pvt) Ltd.", "Karachi", "923333449020", "builder"], "28": ["Lodhi Builders & Estate", "Lahore", "923215070122", "agency"], "29": ["DEAL LAND REAL ESTATE AND BUILDERS", "Lahore", "923214997657", "agency"], "30": ["Haris Real Estate & Builders", "Lahore", "923004882031", "agency"], "31": ["Property Master And Builders (PMB)", "Lahore", "923234897861", "agency"], "32": ["GM Real Estate and Developers", "Lahore", "923201430049", "builder"], "33": ["Zahid Estate", "Lahore", "923224285051", "agency"], "34": ["NM Associates - Lake City", "Lahore", "923218466023", "agency"], "35": ["Harum Estate | Builders", "Lahore", "923214045556", "agency"], "36": ["HAMD ESTATE & BUILDERS", "Lahore", "923484360669", "builder"], "37": ["KAREEM REAL ESTATE AND BUILDERS", "Lahore", "923264345363", "agency"], "38": ["Ali Baba Estate & Builders", "Lahore", "923009425503", "agency"], "39": ["Al-Habib Builders & Developers", "Lahore", "923008258258", "builder"], "40": ["AlRehman Property Advisor & Construction", "Islamabad", "923365322037", "builder"], "41": ["GOLD BRICKS REAL ESTATE AND BUILDERS", "Islamabad", "923369902517", "agency"], "42": ["Akbar Groups Real Estate And Builders", "Islamabad", "923336955557", "agency"], "43": ["Top Value Associates", "Islamabad", "923365221225", "agency"], "44": ["Land Mark Estate & Builders", "Islamabad", "923355111587", "agency"], "45": ["A.R. Alam Builders & Developers", "Islamabad", "923005555111", "builder"], "46": ["ONYX INTERNATIONAL REAL ESTATE AND BUILDERS", "Rawalpindi", "923355777997", "agency"], "47": ["Sultan's Construction & Real Estate", "Rawalpindi", "923366666536", "builder"], "48": ["Imar Associates and Builders", "Rawalpindi", "923360513545", "agency"], "49": ["Zamung Kor Real Estate & Builders", "Peshawar", "923334355344", "agency"], "50": ["Prospect Realty", "Peshawar", "923329998825", "agency"], "51": ["Home Land Property & Builders", "Peshawar", "923333243111", "agency"], "52": ["N W R Real Estate & Builders", "Peshawar", "923363777723", "agency"], "53": ["Hayatabad Property Dealer", "Peshawar", "923339343874", "agency"], "54": ["Eshaal Real Estate and Builders - DHA Peshawar", "Peshawar", "923005964990", "agency"], "55": ["5G Properties DHA Peshawar", "Peshawar", "923479406740", "agency"], "56": ["Talha Real Estate - Citi Housing Faisalabad", "Faisalabad", "923283300111", "agency"], "57": ["Dreams Real Estate & Construction", "Faisalabad", "923048649839", "builder"], "58": ["BISMILLAH ESTATE & BUILDERS, CITI HOUSING", "Faisalabad", "923007414567", "agency"], "59": ["Pasha Estate & Builders", "Faisalabad", "923007912550", "agency"], "60": ["Modern Homes Real Estate and Builders", "Faisalabad", "923244925766", "agency"], "61": ["Falcon Real Estate", "Gujranwala", "923219997676", "agency"], "62": ["Experts Estate", "Gujranwala", "923217422722", "agency"], "63": ["FUTURE REAL ESTATE & BUILDERS", "Gujranwala", "923222622234", "agency"], "64": ["MA RealEstate Consultant & Builders", "Gujranwala", "923003600032", "agency"], "65": ["Real Constructors Builders & Developers", "Hyderabad", "923043332016", "builder"]};
+
+    // On Page Load
+    window.onload = function() {
+      const params = new URLSearchParams(window.location.search);
+      
+      // 1. Check for Short ID in query (e.g., ?1, ?id=1, ?L01, ?id=L01)
+      let rawQuery = window.location.search.replace('?', '').trim();
+      let matchedId = params.get('id');
+      if (!matchedId && rawQuery) {
+        const pureMatch = rawQuery.split('&')[0];
+        if (/^(l|L)?\d+$/.test(pureMatch)) {
+          matchedId = pureMatch;
+        }
+      }
+      
+      if (matchedId) {
+        // Strip leading 'L' or 'l' and leading zeroes so "L01" -> "1"
+        const cleanKey = matchedId.replace(/^[Ll]0*/, '') || "1";
+        if (LEADS_MAP[cleanKey]) {
+          const leadData = LEADS_MAP[cleanKey];
+          companyName = leadData[0];
+          cityName = leadData[1];
+          phoneNumber = leadData[2];
+          currentMode = leadData[3];
+          currentTheme = currentMode === 'builder' ? 'dark' : 'light';
+        }
+      } else {
+        // 2. Custom or Short Query Parameters (?a=...&c=...&p=...)
+        companyName = params.get('a') || params.get('agency') || params.get('name') || params.get('company') || "Abraaj Gold Developers";
+        cityName = params.get('c') || params.get('city') || "Karachi";
+        phoneNumber = (params.get('p') || params.get('phone') || "923218218521").replace(/\D/g, '');
+
+        const urlMode = params.get('m') || params.get('mode') || params.get('type');
+        if (urlMode) {
+          currentMode = (urlMode.toLowerCase() === 'agency' || urlMode.toLowerCase() === 'a') ? 'agency' : 'builder';
+        } else {
+          const lower = companyName.toLowerCase();
+          const isAgency = lower.includes('realtor') || lower.includes('estate') || lower.includes('property') || lower.includes('consultant');
+          const isBuilder = lower.includes('builder') || lower.includes('developer') || lower.includes('group');
+          currentMode = isAgency && !isBuilder ? 'agency' : 'builder';
+        }
+
+        const urlTheme = params.get('t') || params.get('theme');
+        if (urlTheme) {
+          currentTheme = urlTheme;
+        } else {
+          currentTheme = currentMode === 'builder' ? 'dark' : 'light';
+        }
+      }
+
+      document.getElementById('input-company').value = companyName;
+      document.getElementById('input-city').value = cityName;
+      document.getElementById('input-phone').value = phoneNumber;
+
+      setTheme(currentTheme);
+      setBusinessMode(currentMode);
+    };
+  </script>
+</body>
+</html>
