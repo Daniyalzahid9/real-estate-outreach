@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-mode="builder">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Ahmed Mustufa Builders | Official Real Estate Portal • Karachi</title>
+  
+  <!-- High Speed Preload of Flagship Hero Image -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=75" fetchpriority="high">
+
+  <!-- Google Fonts: Modern Luxury Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS & RESPONSIVE THEMES
+       ========================================================================== */
+    :root {
+      --primary: #b45309;
+      --primary-hover: #92400e;
+      --accent-green: #16a34a;
+      --accent-green-hover: #15803d;
+      --wa-pulse: rgba(37, 211, 102, 0.4);
+    }
+
+    [data-theme="light"] {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-alt: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --header-bg: rgba(255, 255, 255, 0.96);
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --hero-bg: radial-gradient(circle at 80% 20%, rgba(180, 83, 9, 0.08) 0%, transparent 45%),
+                 radial-gradient(circle at 20% 80%, rgba(37, 211, 102, 0.06) 0%, transparent 50%),
+                 linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #0b1120;
+      --bg-card: #151e32;
+      --bg-alt: #111827;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-light: #64748b;
+      --border: #1e293b;
+      --border-dark: #334155;
+      --header-bg: rgba(11, 17, 32, 0.96);
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      --primary: #f59e0b;
+      --primary-hover: #d97706;
+      --hero-bg: radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.12) 0%, transparent 50%),
+                 radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+                 linear-gradient(180deg, #0f172a 0%, #0b1120 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 76px; /* Space for mobile bottom bar */
+    }
+
+    @media (min-width: 860px) {
+      body { padding-bottom: 0; }
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .gold-accent {
+      color: var(--primary);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 4px 14px var(--wa-pulse); }
+      50% { box-shadow: 0 4px 24px rgba(37, 211, 102, 0.7), 0 0 0 6px rgba(37, 211, 102, 0.15); }
+    }
+
+    .hero-content { animation: fadeInUp 0.5s ease both; }
+    .hero-card-col { animation: fadeInUp 0.65s ease 0.1s both; }
+    .header-wa-btn, .mobile-btn-wa, .hero-card-btn { animation: pulseGlow 3s infinite; }
+
+    /* ==========================================================================
+       HEADER
+       ========================================================================== */
+    header {
+      padding: 14px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      min-width: 0;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      background: linear-gradient(135deg, var(--primary) 0%, #d97706 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      border-radius: 9px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+    }
+
+    .logo-text {
+      min-width: 0;
+    }
+
+    .logo-text h2 {
+      font-size: clamp(1rem, 3.6vw, 1.3rem);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .logo-text span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .header-wa-btn {
+      background: #25d366;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 9px 18px;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .header-wa-btn:hover {
+      transform: translateY(-2px);
+      background: #22c55e;
+    }
+
+    /* ==========================================================================
+       HERO SECTION (INSTANT 0MS CSS MESH BACKGROUND)
+       ========================================================================== */
+    .hero {
+      position: relative;
+      padding: clamp(32px, 5vw, 68px) 5% clamp(40px, 6vw, 75px);
+      background: var(--hero-bg);
+      border-bottom: 1px solid var(--border);
+      min-height: auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-wrapper {
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 36px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      background: rgba(245, 158, 11, 0.12);
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .hero-title {
+      font-size: clamp(1.8rem, 4.2vw, 2.9rem);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+    }
+
+    .hero-desc {
+      font-size: clamp(0.95rem, 1.8vw, 1.08rem);
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, var(--primary) 0%, #d97706 100%);
+      color: #ffffff;
+      padding: 13px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+    }
+
+    .btn-secondary {
+      background: #25d366;
+      color: #ffffff;
+      padding: 13px 22px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.2s;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      background: #22c55e;
+    }
+
+    /* ==========================================================================
+       HERO FLAGSHIP PROPERTY CARD (PROMINENT MOBILE DISPLAY)
+       ========================================================================== */
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .hero-card-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 230px;
+      background: #1e293b;
+      overflow: hidden;
+    }
+
+    .hero-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .hero-card:hover .hero-card-img {
+      transform: scale(1.04);
+    }
+
+    .hero-img-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .hero-price-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-card-subprice {
+      font-size: 0.8rem;
+      color: var(--accent-green);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .hero-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.25;
+    }
+
+    .hero-card-loc {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 14px;
+    }
+
+    .hero-card-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+
+    .hero-card-btn {
+      background: #25d366;
+      color: #ffffff;
+      padding: 11px 16px;
+      border-radius: 7px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 44px;
+      transition: background 0.2s;
+    }
+
+    .hero-card-btn:hover {
+      background: #22c55e;
+    }
+
+    .hero-call-btn {
+      background: var(--bg-alt);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      width: 44px;
+      height: 44px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .hero-call-btn:hover {
+      background: var(--border);
+    }
+
+    /* ==========================================================================
+       TRUST STRIP
+       ========================================================================== */
+    .facts-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1240px;
+      margin: 28px auto 0;
+      padding: 0 5%;
+    }
+
+    .fact-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 18px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .fact-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .fact-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* ==========================================================================
+       SECTION & PROPERTY CARDS
+       ========================================================================== */
+    .section {
+      padding: 55px 5%;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin-bottom: 8px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      height: 195px;
+      background: #1e293b;
+      overflow: hidden;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .card:hover .card-img {
+      transform: scale(1.05);
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px);
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 5px;
+    }
+
+    .card-content {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-price {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .card-address {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 12px;
+    }
+
+    .card-details {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .card-wa-btn {
+      margin-top: auto;
+      background: #25d366;
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: 7px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.86rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .card-wa-btn:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       CONVERSION TOOLS (CALCULATOR / VALUATION)
+       ========================================================================== */
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(24px, 4vw, 42px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .calc-slider {
+      margin-bottom: 20px;
+    }
+
+    .calc-slider label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .calc-slider input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      height: 6px;
+      border-radius: 4px;
+      background: var(--border);
+      outline: none;
+    }
+
+    .calc-result-box {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .calc-stat-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .calc-stat-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .val-form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .val-field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .val-field select, .val-field input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    /* ==========================================================================
+       OVERSEAS PAKISTANI SECTION
+       ========================================================================== */
+    .overseas-card {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.08) 0%, rgba(245, 158, 11, 0.08) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(24px, 4vw, 42px);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .overseas-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .overseas-points li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      background: var(--header-bg);
+      border-top: 1px solid var(--border);
+      padding: 40px 5% 30px;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .footer-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      max-width: 550px;
+      margin: 0 auto 20px;
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    /* ==========================================================================
+       MOBILE BOTTOM STICKY BAR
+       ========================================================================== */
+    .mobile-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--header-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      padding: 10px 16px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      z-index: 999;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .mobile-btn-wa {
+      flex: 1;
+      background: #25d366;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .mobile-btn-call {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    /* ==========================================================================
+       MOBILE RESPONSIVENESS (IMAGE PROMINENT ON FRONT PAGE)
+       ========================================================================== */
+    @media (max-width: 860px) {
+      .hero-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .hero {
+        padding: 24px 5% 32px;
+      }
+      .hero-card-col {
+        display: block !important;
+        width: 100%;
+        max-width: 460px;
+        margin: 6px auto 0;
+      }
+      .hero-card-img-wrap {
+        height: 220px !important;
+      }
+      .hero-actions {
+        display: none; /* Replaced by prominent WhatsApp button inside hero card on mobile */
+      }
+      .nav-links { display: none; }
+      .header-wa-btn { display: none; }
+      .facts-strip {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .calc-grid { grid-template-columns: 1fr; gap: 20px; }
+      .val-form-grid { grid-template-columns: 1fr; }
+      .overseas-card { grid-template-columns: 1fr; gap: 20px; }
+      .mobile-bar { display: flex; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: clamp(1.5rem, 6.4vw, 1.95rem);
+      }
+      .hero-desc {
+        font-size: 0.92rem;
+        margin-bottom: 16px;
+      }
+      .facts-strip {
+        grid-template-columns: 1fr 1fr;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="logo-area">
+      <div class="logo-badge">AM</div>
+      <div class="logo-text">
+        <h2>Ahmed Mustufa Builders</h2>
+        <span>Builders & Developers • Clifton (Horizon Tower), Karachi</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#properties">Featured Properties</a></li>
+      <li><a href="#calculator">Installment Plan</a></li>
+      <li><a href="#overseas">Overseas Buyers</a></li>
+    </ul>
+    <div>
+      <a href="https://wa.me/923332286266?text=Assalam-o-Alaikum%20Ahmed%20Mustufa%20Builders%2C%20I%20saw%20your%20verified%20properties%20in%20Clifton%20%28Horizon%20Tower%29%2C%20Karachi%20on%20your%20official%20website%20and%20would%20like%20details." class="header-wa-btn" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+        <span>WhatsApp Chat</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-wrapper">
+      <div class="hero-content">
+        <span class="hero-tag">✦ Direct Developer Booking • Karachi</span>
+        <h1 class="hero-title">Signature Luxury Developments in <span class='gold-accent'>Clifton (Horizon Tower)</span></h1>
+        <p class="hero-desc">Direct developer prices with structured 36-month installment plans. Zero hidden commission. Official booking and allotment with 100% legal title guarantee.</p>
+        <div class="hero-actions">
+          <a href="#calculator" class="btn-main">
+            Calculate Installment Plan
+          </a>
+          <a href="https://wa.me/923332286266?text=Assalam-o-Alaikum%20Ahmed%20Mustufa%20Builders%2C%20I%20saw%20your%20verified%20properties%20in%20Clifton%20%28Horizon%20Tower%29%2C%20Karachi%20on%20your%20official%20website%20and%20would%20like%20details." class="btn-secondary" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+            <span>Inquire on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Prominent Flagship Showcase Card (Always Visible on Mobile Front Screen) -->
+      <div class="hero-card-col">
+        <div class="hero-card">
+          <div class="hero-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=75" alt="3-Bed Executive Penthouse Suites" class="hero-card-img" width="600" height="340" fetchpriority="high" loading="eager">
+            <span class="hero-img-badge">🏗️ Direct Developer Booking</span>
+            <span class="hero-price-badge">PKR 1.85 Crore</span>
+          </div>
+          <div class="hero-card-body">
+            <div class="hero-card-subprice">20% Down Payment • 36-Month Plan</div>
+            <h3 class="hero-card-title">3-Bed Executive Penthouse Suites</h3>
+            <div class="hero-card-loc">📍 Main Boulevard, Clifton (Horizon Tower)</div>
+            <div class="hero-card-actions">
+              <a href="https://wa.me/923332286266?text=Assalam-o-Alaikum%20Ahmed%20Mustufa%20Builders%2C%20I%20want%20details%20and%20booking%20payment%20plan%20for%203-Bed%20Executive%20Penthouse%20Suites." class="hero-card-btn" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                <span>Inquire on WhatsApp</span>
+              </a>
+              <a href="tel:+923332286266" class="hero-call-btn" title="Call Direct">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Facts Bar -->
+  <div class="facts-strip">
+    <div class="fact-item">
+      <div class="fact-number">100%</div>
+      <div class="fact-label">Verified Land Titles</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-number">0%</div>
+      <div class="fact-label">Hidden Charges</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-number">36 Mos</div>
+      <div class="fact-label">Easy Installment Plan</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-number">Direct</div>
+      <div class="fact-label">Fast WhatsApp Support</div>
+    </div>
+  </div>
+
+  <!-- Featured Properties Section -->
+  <section class="section" id="properties">
+    <div class="section-header">
+      <span class="section-tag">Direct Off-Plan Projects</span>
+      <h2 class="section-title">Current Developments in Clifton (Horizon Tower)</h2>
+    </div>
+
+    <div class="cards-grid">
+      
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=75" alt="3-Bed Executive Penthouse Suites" class="card-img" width="600" height="340" loading="lazy">
+            <span class="card-tag">20% Down • PKR 2.91 Lac/Month</span>
+          </div>
+          <div class="card-content">
+            <div class="card-price">PKR 1.85 Crore</div>
+            <h3 class="card-name">3-Bed Executive Penthouse Suites</h3>
+            <div class="card-address">📍 Main Boulevard, Clifton (Horizon Tower)</div>
+            <div class="card-details">3 Bed Luxury • 2,150 Sq. Ft. • High-Speed Elevators • Covered Parking</div>
+            <a href="https://wa.me/923332286266?text=Salam%20Ahmed%20Mustufa%20Builders%2C%20please%20send%20payment%20plan%20for%203-Bed%20Executive%20Penthouse%20Suites." class="card-wa-btn" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+              <span>Inquire on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=75" alt="Signature 500 Sq. Yds Designer Villa" class="card-img" width="600" height="340" loading="lazy">
+            <span class="card-tag">Flexible 2.5-Year Milestone Plan</span>
+          </div>
+          <div class="card-content">
+            <div class="card-price">PKR 5.75 Crore</div>
+            <h3 class="card-name">Signature 500 Sq. Yds Designer Villa</h3>
+            <div class="card-address">📍 Executive Enclave, Clifton (Horizon Tower)</div>
+            <div class="card-details">5 Bed En-suite • Italian Kitchen • Rooftop Garden • Swimming Pool</div>
+            <a href="https://wa.me/923332286266?text=Salam%20Ahmed%20Mustufa%20Builders%2C%20please%20share%20floor%20layout%20%26%20booking%20details%20for%20500%20Sq.%20Yds%20Designer%20Villa." class="card-wa-btn" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+              <span>Inquire on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=75" alt="Prime Ground Floor Commercial Showroom" class="card-img" width="600" height="340" loading="lazy">
+            <span class="card-tag">18-Month Plan • High Rental Yield</span>
+          </div>
+          <div class="card-content">
+            <div class="card-price">PKR 3.40 Crore</div>
+            <h3 class="card-name">Prime Ground Floor Commercial Showroom</h3>
+            <div class="card-address">📍 Commercial Central, Karachi</div>
+            <div class="card-details">1,400 Sq. Ft. • Corner Location • Dedicated Parking • Immediate Possession</div>
+            <a href="https://wa.me/923332286266?text=Salam%20Ahmed%20Mustufa%20Builders%2C%20I%20am%20interested%20in%20Ground%20Floor%20Commercial%20Showroom%20investment." class="card-wa-btn" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+              <span>Inquire on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=600&q=75" alt="2-Bed Modern Smart Apartments" class="card-img" width="600" height="340" loading="lazy">
+            <span class="card-tag">Only 15% Down Payment • 48 Mos</span>
+          </div>
+          <div class="card-content">
+            <div class="card-price">PKR 95 Lakhs</div>
+            <h3 class="card-name">2-Bed Modern Smart Apartments</h3>
+            <div class="card-address">📍 Prime Residential Sector, Karachi</div>
+            <div class="card-details">2 Bedrooms • 1,150 Sq. Ft. • 24/7 Security • Gym & Community Hall</div>
+            <a href="https://wa.me/923332286266?text=Salam%20Ahmed%20Mustufa%20Builders%2C%20please%20send%20the%204-year%20installment%20plan%20for%202-Bed%20Smart%20Apartments." class="card-wa-btn" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+              <span>Inquire on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+        
+    </div>
+  </section>
+
+  <!-- Interactive Conversion Tool (Calculator or Valuation) -->
+  
+        <section class="section" id="calculator">
+          <div class="tool-card">
+            <div class="calc-grid">
+              <div>
+                <span class="section-tag">Payment Calculator</span>
+                <h2 style="font-size: 1.85rem; margin-bottom: 10px;">Calculate Your Monthly Installment</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px;">
+                  Customize your budget and see instant payment breakdowns before locking your unit with Ahmed Mustufa Builders.
+                </p>
+
+                <div class="calc-slider">
+                  <label>
+                    <span>Total Unit Price:</span>
+                    <strong id="lbl-price" style="color: var(--primary);">PKR 1.50 Crore</strong>
+                  </label>
+                  <input type="range" id="rng-price" min="5000000" max="50000000" step="500000" value="15000000" oninput="calculatePlan()">
+                </div>
+
+                <div class="calc-slider">
+                  <label>
+                    <span>Down Payment:</span>
+                    <strong id="lbl-down" style="color: var(--primary);">20%</strong>
+                  </label>
+                  <input type="range" id="rng-down" min="10" max="40" step="5" value="20" oninput="calculatePlan()">
+                </div>
+
+                <div class="calc-slider">
+                  <label>
+                    <span>Installment Duration:</span>
+                    <strong id="lbl-months" style="color: var(--primary);">36 Months (3 Years)</strong>
+                  </label>
+                  <input type="range" id="rng-months" min="12" max="48" step="6" value="36" oninput="calculatePlan()">
+                </div>
+              </div>
+
+              <div class="calc-result-box">
+                <div class="calc-stat">
+                  <div class="calc-stat-label">Down Payment Required</div>
+                  <div class="calc-stat-value" id="res-down">PKR 30,00,000</div>
+                </div>
+                <div class="calc-stat">
+                  <div class="calc-stat-label">Monthly Installment</div>
+                  <div class="calc-stat-value" id="res-monthly" style="color: var(--accent-green);">PKR 2,91,667 /mo</div>
+                </div>
+                <div class="calc-stat">
+                  <div class="calc-stat-label">On Possession Payment (15%)</div>
+                  <div class="calc-stat-value" id="res-possession" style="font-size: 1.3rem; color: var(--text-light);">PKR 22,50,000</div>
+                </div>
+                <a href="#" id="calc-wa-btn" class="btn-main" style="text-align: center; margin-top: 10px;" target="_blank">
+                  Lock This Plan with Ahmed Mustufa Builders
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+
+  <!-- Overseas Pakistani Dedicated Corridor -->
+  <section class="section" id="overseas">
+    <div class="overseas-card">
+      <div>
+        <span class="section-tag">Overseas Pakistani Services</span>
+        <h2 style="font-size: 1.85rem; margin-bottom: 10px;">Dedicated Assistance for Non-Resident Pakistanis</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Investing from UAE, UK, USA, or Saudi Arabia? Ahmed Mustufa Builders provides comprehensive remote execution and legal safety:
+        </p>
+        <ul class="overseas-points">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#22c55e"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            <span>Live HD Video Site Walkthroughs via WhatsApp</span>
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#22c55e"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            <span>Roshan Digital Account (RDA) Direct Bank Remittance</span>
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#22c55e"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            <span>Power of Attorney & Sub-Lease Registry Management</span>
+          </li>
+        </ul>
+        <a href="https://wa.me/923332286266?text=Assalam-o-Alaikum%20Ahmed%20Mustufa%20Builders%2C%20I%20saw%20your%20verified%20properties%20in%20Clifton%20%28Horizon%20Tower%29%2C%20Karachi%20on%20your%20official%20website%20and%20would%20like%20details." class="btn-main" target="_blank" rel="noopener">
+          Connect with Overseas Desk on WhatsApp
+        </a>
+      </div>
+      <div style="background: var(--bg-card); padding: 24px; border-radius: 12px; border: 1px solid var(--border); text-align: center;">
+        <div style="font-size: 2.2rem; margin-bottom: 8px;">🌍</div>
+        <h4 style="font-size: 1.2rem; margin-bottom: 8px;">NRP Fast Track</h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+          Direct communication with executive management in Karachi.
+        </p>
+        <a href="tel:+923332286266" style="color: var(--primary); font-weight: 700; text-decoration: none; font-size: 1rem;">
+          📞 +923332286266
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">
+      <div class="logo-badge" style="width: 34px; height: 34px; font-size: 0.95rem;">AM</div>
+      <h3 style="font-size: 1.15rem;">Ahmed Mustufa Builders</h3>
+    </div>
+    <p class="footer-desc">
+      Official real estate and builder representation in Clifton (Horizon Tower), Karachi, Pakistan. Complete title verification, transparent pricing, and direct client assistance.
+    </p>
+    <div class="footer-copy">
+      © 2026 Ahmed Mustufa Builders. All rights reserved. • Clifton (Horizon Tower), Karachi, Pakistan.
+    </div>
+  </footer>
+
+  <!-- Mobile Sticky Bottom Bar -->
+  <div class="mobile-bar">
+    <a href="https://wa.me/923332286266?text=Assalam-o-Alaikum%20Ahmed%20Mustufa%20Builders%2C%20I%20saw%20your%20verified%20properties%20in%20Clifton%20%28Horizon%20Tower%29%2C%20Karachi%20on%20your%20official%20website%20and%20would%20like%20details." class="mobile-btn-wa" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+      <span>Inquire on WhatsApp</span>
+    </a>
+    <a href="tel:+923332286266" class="mobile-btn-call" title="Call Office">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z"/></svg>
+    </a>
+  </div>
+
+  <script>
+    const COMPANY_NAME = "Ahmed Mustufa Builders";
+    const PHONE_NUMBER = "923332286266";
+
+    function formatPKR(val) {
+      if (val >= 10000000) {
+        return "PKR " + (val / 10000000).toFixed(2) + " Crore";
+      } else {
+        return "PKR " + (val / 100000).toFixed(0) + " Lakhs";
+      }
+    }
+
+    function calculatePlan() {
+      const pEl = document.getElementById('rng-price');
+      if (!pEl) return;
+      const price = parseFloat(pEl.value);
+      const downPct = parseFloat(document.getElementById('rng-down').value);
+      const months = parseFloat(document.getElementById('rng-months').value);
+
+      document.getElementById('lbl-price').innerText = formatPKR(price);
+      document.getElementById('lbl-down').innerText = downPct + "%";
+      document.getElementById('lbl-months').innerText = months + " Months (" + (months / 12).toFixed(1) + " Yrs)";
+
+      const downVal = price * (downPct / 100);
+      const possVal = price * 0.15;
+      const remVal = price - downVal - possVal;
+      const monthlyVal = Math.round(remVal / months);
+
+      document.getElementById('res-down').innerText = formatPKR(downVal);
+      document.getElementById('res-monthly').innerText = "PKR " + monthlyVal.toLocaleString('en-PK') + " /mo";
+      document.getElementById('res-possession').innerText = formatPKR(possVal);
+
+      const waBtn = document.getElementById('calc-wa-btn');
+      if (waBtn) {
+        const msg = `Assalam-o-Alaikum ${COMPANY_NAME}, I want to lock the installment plan for a ${formatPKR(price)} unit with ${downPct}% down payment and ${months}-month installments.`;
+        waBtn.href = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`;
+      }
+    }
+
+    function sendValuationWA(e) {
+      if (e) e.preventDefault();
+      const type = document.getElementById('val-type').value;
+      const size = document.getElementById('val-size').value;
+      const loc = document.getElementById('val-loc').value;
+      const msg = `Assalam-o-Alaikum ${COMPANY_NAME}, I want a free price valuation for my ${type} (${size}) located in ${loc}.`;
+      window.open(`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // Init calculator on load
+    if (document.getElementById('rng-price')) {
+      calculatePlan();
+    }
+  </script>
+</body>
+</html>
