@@ -113,10 +113,8 @@ def load_leads():
             }
             lang, msg1, angle_type = get_message_for_lead(lead_temp)
             
-            mode_param = 'builder' if "morning" in batch_code.lower() else 'agency'
-            theme_param = 'dark' if "morning" in batch_code.lower() else 'light'
-            demo_url = f"/demo?agency={urllib.parse.quote(bname)}&city={urllib.parse.quote(city)}&phone={clean_wa}&mode={mode_param}&theme={theme_param}"
-            full_demo_url = f"http://127.0.0.1:8050{demo_url}"
+            demo_url = f"/demo?id={lid}"
+            full_demo_url = f"https://real-estate-outreach.pages.dev{demo_url}"
             
             if sheet_msg2 and "[INSERT_YOUR_DEMO_LINK_HERE]" in sheet_msg2:
                 msg2 = sheet_msg2.replace("[INSERT_YOUR_DEMO_LINK_HERE]", full_demo_url)
@@ -189,9 +187,9 @@ def generate_expert_reply(lead: dict, incoming_msg: str) -> dict:
     clean_wa = lead.get('clean_wa', '')
     
     greeting = f"Assalam-o-Alaikum {c_clean} sahib!" if c_clean else "Assalam-o-Alaikum bhai!"
-    demo_url = lead.get('demo_url') or f"/demo?agency={urllib.parse.quote(name)}&city={urllib.parse.quote(city)}&phone={clean_wa}"
+    demo_url = lead.get('demo_url') or f"/demo?id={lead.get('id', '1')}"
     if demo_url.startswith('/'):
-        demo_url = f"http://127.0.0.1:8050{demo_url}"
+        demo_url = f"https://real-estate-outreach.pages.dev{demo_url}"
     
     # 1. Affirmative / Permission Granted ("Sure", "Send", "Ji bhejain", "Show me", "Kaun bol rahe hain")
     # -> Message 2: Value-First Delivery + SPIN Selling Financial Implication

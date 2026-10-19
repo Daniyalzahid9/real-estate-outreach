@@ -1591,29 +1591,56 @@
       window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
     }
 
+    // Fast Leads Directory for 1-Click Short Links (?1, ?id=1, ?L01, ?id=L01)
+    const LEADS_MAP = {"1": ["Three Realtors and Builders", "Karachi", "923213497497", "agency"], "2": ["HomeNet Real Estate", "Karachi", "923332107730", "agency"], "3": ["BINFEROZ Enterprises (Real Estate & Builders)", "Karachi", "923308166611", "builder"], "4": ["Sarim Raza Estate and Builders", "Karachi", "923363684155", "agency"], "5": ["Jinnah Builders & Real-Estate", "Karachi", "923002297006", "agency"], "6": ["Ross Realtors & Builders", "Karachi", "923002460777", "agency"], "7": ["Siraat Real Estate And Builders", "Karachi", "923212267771", "builder"], "8": ["ROYAL HOMES Real Estate & Builders", "Karachi", "923000267234", "agency"], "9": ["GFS Builders & Developers (Gulshan Branch)", "Karachi", "923112786956", "builder"], "10": ["AHH Brothers Builders & Developers", "Karachi", "923706841049", "builder"], "11": ["Lenaar Group of Companies Pvt Ltd", "Karachi", "923183000660", "builder"], "12": ["AL HASSAN ESTATE & Construction Contractor", "Karachi", "923360803525", "builder"], "13": ["Matloob Real Estate", "Karachi", "923122688849", "agency"], "14": ["Paragon Estate", "Karachi", "923333505153", "agency"], "15": ["AA Builders Developers & Real Estate", "Karachi", "923118050064", "builder"], "16": ["Anaya Estate Builders", "Karachi", "923212954657", "agency"], "17": ["Hafiz Real Estate & Builders", "Karachi", "923320234161", "agency"], "18": ["M.A Real Estates & Builders", "Karachi", "923101158885", "agency"], "19": ["92 Al Qaswa Builders & Developers", "Karachi", "923332128661", "builder"], "20": ["3G Builders & Developers", "Karachi", "923111911116", "builder"], "21": ["A.E & H Builders", "Karachi", "923219248416", "builder"], "22": ["Abraaj Gold Builders & Developers", "Karachi", "923218700141", "builder"], "23": ["Ahmed Mustufa Builders", "Karachi", "923332286266", "builder"], "24": ["Al-Kafeel Builders & Developer", "Karachi", "923219298110", "builder"], "25": ["Al-Khalid Builders & Developers", "Karachi", "923212435800", "builder"], "26": ["Al-Mukhtar Builders & Developers", "Karachi", "923219211822", "builder"], "27": ["Al-Qasar Builders & Developers (Pvt) Ltd.", "Karachi", "923333449020", "builder"], "28": ["Lodhi Builders & Estate", "Lahore", "923215070122", "agency"], "29": ["DEAL LAND REAL ESTATE AND BUILDERS", "Lahore", "923214997657", "agency"], "30": ["Haris Real Estate & Builders", "Lahore", "923004882031", "agency"], "31": ["Property Master And Builders (PMB)", "Lahore", "923234897861", "agency"], "32": ["GM Real Estate and Developers", "Lahore", "923201430049", "builder"], "33": ["Zahid Estate", "Lahore", "923224285051", "agency"], "34": ["NM Associates - Lake City", "Lahore", "923218466023", "agency"], "35": ["Harum Estate | Builders", "Lahore", "923214045556", "agency"], "36": ["HAMD ESTATE & BUILDERS", "Lahore", "923484360669", "builder"], "37": ["KAREEM REAL ESTATE AND BUILDERS", "Lahore", "923264345363", "agency"], "38": ["Ali Baba Estate & Builders", "Lahore", "923009425503", "agency"], "39": ["Al-Habib Builders & Developers", "Lahore", "923008258258", "builder"], "40": ["AlRehman Property Advisor & Construction", "Islamabad", "923365322037", "builder"], "41": ["GOLD BRICKS REAL ESTATE AND BUILDERS", "Islamabad", "923369902517", "agency"], "42": ["Akbar Groups Real Estate And Builders", "Islamabad", "923336955557", "agency"], "43": ["Top Value Associates", "Islamabad", "923365221225", "agency"], "44": ["Land Mark Estate & Builders", "Islamabad", "923355111587", "agency"], "45": ["A.R. Alam Builders & Developers", "Islamabad", "923005555111", "builder"], "46": ["ONYX INTERNATIONAL REAL ESTATE AND BUILDERS", "Rawalpindi", "923355777997", "agency"], "47": ["Sultan's Construction & Real Estate", "Rawalpindi", "923366666536", "builder"], "48": ["Imar Associates and Builders", "Rawalpindi", "923360513545", "agency"], "49": ["Zamung Kor Real Estate & Builders", "Peshawar", "923334355344", "agency"], "50": ["Prospect Realty", "Peshawar", "923329998825", "agency"], "51": ["Home Land Property & Builders", "Peshawar", "923333243111", "agency"], "52": ["N W R Real Estate & Builders", "Peshawar", "923363777723", "agency"], "53": ["Hayatabad Property Dealer", "Peshawar", "923339343874", "agency"], "54": ["Eshaal Real Estate and Builders - DHA Peshawar", "Peshawar", "923005964990", "agency"], "55": ["5G Properties DHA Peshawar", "Peshawar", "923479406740", "agency"], "56": ["Talha Real Estate - Citi Housing Faisalabad", "Faisalabad", "923283300111", "agency"], "57": ["Dreams Real Estate & Construction", "Faisalabad", "923048649839", "builder"], "58": ["BISMILLAH ESTATE & BUILDERS, CITI HOUSING", "Faisalabad", "923007414567", "agency"], "59": ["Pasha Estate & Builders", "Faisalabad", "923007912550", "agency"], "60": ["Modern Homes Real Estate and Builders", "Faisalabad", "923244925766", "agency"], "61": ["Falcon Real Estate", "Gujranwala", "923219997676", "agency"], "62": ["Experts Estate", "Gujranwala", "923217422722", "agency"], "63": ["FUTURE REAL ESTATE & BUILDERS", "Gujranwala", "923222622234", "agency"], "64": ["MA RealEstate Consultant & Builders", "Gujranwala", "923003600032", "agency"], "65": ["Real Constructors Builders & Developers", "Hyderabad", "923043332016", "builder"]};
+
     // On Page Load
     window.onload = function() {
       const params = new URLSearchParams(window.location.search);
-      companyName = params.get('agency') || params.get('company') || "Abraaj Gold Developers";
-      cityName = params.get('city') || "Karachi";
-      phoneNumber = (params.get('phone') || "923218218521").replace(/\D/g, '');
-
-      // Check URL parameters for mode and theme
-      const urlMode = params.get('mode') || params.get('type');
-      if (urlMode) {
-        currentMode = urlMode.toLowerCase() === 'agency' ? 'agency' : 'builder';
-      } else {
-        const lower = companyName.toLowerCase();
-        const isAgency = lower.includes('realtor') || lower.includes('estate') || lower.includes('property') || lower.includes('consultant');
-        const isBuilder = lower.includes('builder') || lower.includes('developer') || lower.includes('group');
-        currentMode = isAgency && !isBuilder ? 'agency' : 'builder';
+      
+      // 1. Check for Short ID in query (e.g., ?1, ?id=1, ?L01, ?id=L01)
+      let rawQuery = window.location.search.replace('?', '').trim();
+      let matchedId = params.get('id');
+      if (!matchedId && rawQuery) {
+        const pureMatch = rawQuery.split('&')[0];
+        if (/^(l|L)?\d+$/.test(pureMatch)) {
+          matchedId = pureMatch;
+        }
       }
-
-      const urlTheme = params.get('theme');
-      if (urlTheme) {
-        currentTheme = urlTheme;
+      
+      if (matchedId) {
+        // Strip leading 'L' or 'l' and leading zeroes so "L01" -> "1"
+        const cleanKey = matchedId.replace(/^[Ll]0*/, '') || "1";
+        if (LEADS_MAP[cleanKey]) {
+          const leadData = LEADS_MAP[cleanKey];
+          companyName = leadData[0];
+          cityName = leadData[1];
+          phoneNumber = leadData[2];
+          currentMode = leadData[3];
+          currentTheme = currentMode === 'builder' ? 'dark' : 'light';
+        }
       } else {
-        currentTheme = "light"; // Default clean light theme
+        // 2. Custom or Short Query Parameters (?a=...&c=...&p=...)
+        companyName = params.get('a') || params.get('agency') || params.get('name') || params.get('company') || "Abraaj Gold Developers";
+        cityName = params.get('c') || params.get('city') || "Karachi";
+        phoneNumber = (params.get('p') || params.get('phone') || "923218218521").replace(/\D/g, '');
+
+        const urlMode = params.get('m') || params.get('mode') || params.get('type');
+        if (urlMode) {
+          currentMode = (urlMode.toLowerCase() === 'agency' || urlMode.toLowerCase() === 'a') ? 'agency' : 'builder';
+        } else {
+          const lower = companyName.toLowerCase();
+          const isAgency = lower.includes('realtor') || lower.includes('estate') || lower.includes('property') || lower.includes('consultant');
+          const isBuilder = lower.includes('builder') || lower.includes('developer') || lower.includes('group');
+          currentMode = isAgency && !isBuilder ? 'agency' : 'builder';
+        }
+
+        const urlTheme = params.get('t') || params.get('theme');
+        if (urlTheme) {
+          currentTheme = urlTheme;
+        } else {
+          currentTheme = currentMode === 'builder' ? 'dark' : 'light';
+        }
       }
 
       document.getElementById('input-company').value = companyName;

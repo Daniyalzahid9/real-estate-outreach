@@ -179,10 +179,7 @@ function selectLead(lead) {
 
   const demoBtn = document.getElementById('lead-demo-btn');
   if (demoBtn) {
-    const isAgency = !isMorning;
-    const mode = isAgency ? 'agency' : 'builder';
-    const theme = isAgency ? 'light' : 'dark';
-    const demoUrl = `demo.html?agency=${encodeURIComponent(lead.name)}&city=${encodeURIComponent(lead.city)}&phone=${encodeURIComponent(lead.clean_wa)}&mode=${mode}&theme=${theme}`;
+    const demoUrl = `/demo?id=${lead.id}`;
     demoBtn.href = demoUrl;
   }
 
@@ -237,7 +234,7 @@ function generateLocalExpertReply(lead, query) {
   const isMorning = (lead.batch_code || '').toLowerCase().includes('morning');
   const mode = isMorning ? 'builder' : 'agency';
   const theme = isMorning ? 'dark' : 'light';
-  const demoUrl = `${window.location.origin}/demo.html?agency=${encodeURIComponent(name)}&city=${encodeURIComponent(city)}&phone=${cleanWa}&mode=${mode}&theme=${theme}`;
+  const demoUrl = `${window.location.origin}/demo?id=${lead.id}`;
   const greeting = cClean ? `Assalam-o-Alaikum ${cClean} sahib!` : "Assalam-o-Alaikum bhai!";
 
   // 1. Affirmative / Permission Granted ("Sure", "Send", "Ji bhejain", "Show me")
