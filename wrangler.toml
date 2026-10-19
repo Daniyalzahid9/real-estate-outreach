@@ -1,0 +1,6 @@
+name = "real-estate-outreach"
+compatibility_date = "2024-10-01"
+
+[assets]
+directory = "./static"
+binding = "ASSETS"
