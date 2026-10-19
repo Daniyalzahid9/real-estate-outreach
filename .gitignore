@@ -1,0 +1,29 @@
+# ==============================================================================
+# Git Ignore - Antigravity Real Estate Outreach Engine
+# ==============================================================================
+
+# WhatsApp Web session profile & cookies (CRITICAL SECURITY: DO NOT COMMIT)
+whatsapp_user_profile/
+mobile_test_results/
+
+# Python environment & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Excel temporary lock files
+~$*.xlsx
+temp_server_read.xlsx
+
+# OS & Editor generated files
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
