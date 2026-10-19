@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity WhatsApp Co-Pilot | Pakistan Real Estate Outreach Engine</title>
+  <meta name="description" content="AI-Powered WhatsApp Outreach and Inbound Sales Co-Pilot for Pakistan Real Estate Agencies and Builders">
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="logo-mark">
+          <span class="logo-icon">⚡</span>
+        </div>
+        <div class="brand-titles">
+          <h1>Antigravity <span class="accent-text">WhatsApp Co-Pilot</span></h1>
+          <p class="subtitle">Pakistan Real Estate Lead Outreach & AI Response Engine (Option B)</p>
+        </div>
+      </div>
+      
+      <div class="header-center">
+        <div class="kpi-chip">
+          <span class="kpi-dot"></span>
+          <span class="kpi-label">Leads:</span>
+          <span class="kpi-val" id="stat-total">65</span>
+        </div>
+        <div class="kpi-chip active-chip">
+          <span class="kpi-label">Contacted:</span>
+          <span class="kpi-val" id="stat-contacted">0</span>
+        </div>
+        <div class="kpi-chip timing-chip-morning">
+          <span class="kpi-label">🌅 Morning:</span>
+          <span class="kpi-val" id="stat-morning">22</span>
+        </div>
+        <div class="kpi-chip timing-chip-evening">
+          <span class="kpi-label">🌆 Evening:</span>
+          <span class="kpi-val" id="stat-evening">43</span>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <div class="badge-status">
+          <span class="status-pulse"></span>
+          <span>Zero Ban Risk Mode Active</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <main class="main-layout">
+      
+      <!-- LEFT PANE: Leads Explorer & CRM Table -->
+      <section class="leads-pane">
+        <div class="pane-header">
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="lead-search" placeholder="Search agency, area, city, or director...">
+          </div>
+          
+          <div class="filters-row">
+            <div class="filter-group">
+              <label for="city-filter">City:</label>
+              <select id="city-filter">
+                <option value="all">All Cities (8)</option>
+                <option value="Karachi">Karachi (27)</option>
+                <option value="Lahore">Lahore (12)</option>
+                <option value="Peshawar">Peshawar (7)</option>
+                <option value="Islamabad">Islamabad (6)</option>
+                <option value="Faisalabad">Faisalabad (5)</option>
+                <option value="Gujranwala">Gujranwala (4)</option>
+                <option value="Rawalpindi">Rawalpindi (3)</option>
+                <option value="Hyderabad">Hyderabad (1)</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <label for="timing-filter">Time:</label>
+              <select id="timing-filter">
+                <option value="all">All Times (65)</option>
+                <option value="morning">🌅 Morning Batch (11:30 AM – 1:30 PM)</option>
+                <option value="evening">🌆 Evening Baithak (6:30 PM – 9:00 PM)</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label for="status-filter">Status:</label>
+              <select id="status-filter">
+                <option value="all">All</option>
+                <option value="Not Contacted">Not Contacted</option>
+                <option value="Chat Initiated">Chat Initiated</option>
+                <option value="Demo Sent">Demo Sent</option>
+                <option value="Follow-up">Follow-up</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leads Scrollable List -->
+        <div class="leads-list" id="leads-list-container">
+          <div class="loading-state">Loading verified leads...</div>
+        </div>
+      </section>
+
+      <!-- RIGHT PANE: AI Response Co-Pilot & Objection Solver -->
+      <section class="copilot-pane">
+        
+        <!-- Target Lead Detail Card -->
+        <div class="target-card" id="selected-lead-card">
+          <div class="target-card-header">
+            <div>
+              <span class="target-tag" id="lead-city-tag">Karachi</span>
+              <span class="timing-badge" id="lead-timing-badge">🌅 Morning Batch (11:30 AM – 1:30 PM)</span>
+              <h2 id="lead-display-name">Three Realtors and Builders</h2>
+              <p class="target-sub" id="lead-display-sub">DHA Phase 8 • Contact: Listed Office Mobile</p>
+            </div>
+            <div class="target-actions">
+              <a href="#" id="lead-outbound-btn" target="_blank" class="btn btn-emerald">
+                <span>💬 1-Click Launch Pitch</span>
+              </a>
+              <a href="#" id="lead-demo-btn" target="_blank" class="btn btn-gold">
+                <span>🌐 Open Live Demo</span>
+              </a>
+              <a href="#" id="lead-quick-btn" target="_blank" class="btn btn-outline">
+                <span>⚡ Quick Chat</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="target-meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">Clean WhatsApp:</span>
+              <span class="meta-val code" id="lead-display-phone">+92 321 3497497 (923213497497)</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Optimal Outreach Window:</span>
+              <span class="meta-val highlight-timing" id="lead-display-timing">🌅 11:30 AM – 1:30 PM</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Best Days:</span>
+              <span class="meta-val text-amber" id="lead-display-days">Tue – Thu (Peak) | Sat</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Current Web Presence:</span>
+              <span class="meta-val text-amber" id="lead-display-web">No Website Listed</span>
+            </div>
+            <div class="meta-item full-width">
+              <span class="meta-label">Timing Strategy Rationale:</span>
+              <span class="meta-val text-muted" id="lead-display-timing-note">Directors in head office before Zuhr. Avoid 2–4 PM.</span>
+            </div>
+            <div class="meta-item full-width">
+              <span class="meta-label">Website Pitch Opportunity:</span>
+              <span class="meta-val text-muted" id="lead-display-opp">Active DHA Phase 8 builder & agency serving overseas Pakistanis with no website</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Co-Pilot Interactive Solver Box -->
+        <div class="solver-box">
+          <div class="solver-header">
+            <div class="solver-title">
+              <span class="sparkle">✨</span>
+              <h3>Inbound AI Response Co-Pilot</h3>
+            </div>
+            <span class="solver-badge">Pakistani Real Estate Sales Intelligence</span>
+          </div>
+
+          <!-- Quick Pakistani Objection Presets -->
+          <div class="presets-section">
+            <span class="presets-label">Consultative Sales Pipeline & Objection Presets:</span>
+            <div class="chips-row">
+              <button class="chip-btn" data-query="Sure, send it. Show me what you built.">
+                🎯 Reply to Opener: "Sure, Send Demo" (Step 2 Value Drop)
+              </button>
+              <button class="chip-btn" data-query="Bhai charges aur package details kya hain? Kitne paise lagenge?">
+                💰 Asking for Price (Step 3: 7-Min Close)
+              </button>
+              <button class="chip-btn" data-query="Hamara kaam to Zameen.com aur Facebook se chal raha hai, website ka kya faida?">
+                🏢 Relying on Zameen / FB (Challenger Sale)
+              </button>
+              <button class="chip-btn" data-query="Salam bhai, did you get a 30-second window to test the preview?">
+                ⏳ Day 3 Follow-Up Nudge
+              </button>
+              <button class="chip-btn" data-query="Taking down the test link tonight as we are onboarding another developer">
+                🚪 Day 7 Breakup (FOMO)
+              </button>
+              <button class="chip-btn" data-query="Website banne ke baad naye plots kaun update karega? Hamare paas time nahi hota">
+                ⚙️ Who Updates Listings?
+              </button>
+            </div>
+          </div>
+
+          <!-- Input Client Message -->
+          <div class="input-group">
+            <label for="client-message-input">Paste what the dealer/builder messaged you on WhatsApp:</label>
+            <textarea id="client-message-input" rows="3" placeholder="e.g. Bhai rates kya hain? Ya koi demo link share karein..."></textarea>
+          </div>
+
+          <div class="generate-row">
+            <button id="generate-reply-btn" class="btn btn-primary btn-glow">
+              <span class="btn-icon">⚡</span>
+              <span>Generate Co-Pilot Sales Reply</span>
+            </button>
+            <div class="crm-quick-status">
+              <label for="crm-status-select">Update Lead Status:</label>
+              <select id="crm-status-select">
+                <option value="Not Contacted">Not Contacted</option>
+                <option value="Chat Initiated">Chat Initiated</option>
+                <option value="Demo Sent">Demo Sent</option>
+                <option value="Follow-up">Follow-up</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Output Tabs & Actions -->
+        <div class="output-container" id="reply-output-container">
+          
+          <div class="output-tabs">
+            <button class="tab-btn active" data-tab="tab-text">💬 WhatsApp Text Reply</button>
+            <button class="tab-btn" data-tab="tab-voice">🎙️ Spoken Voice Note Script (~35s)</button>
+            <button class="tab-btn" data-tab="tab-psychology">🧠 Deal Psychology & Strategy</button>
+          </div>
+
+          <!-- TAB 1: WhatsApp Text Reply -->
+          <div class="tab-content active" id="tab-text">
+            <div class="output-bubble" id="output-text-content">
+              Select a lead and click "Generate Co-Pilot Sales Reply" to see the tailored response.
+            </div>
+            <div class="bubble-actions">
+              <a href="#" id="output-wa-link" target="_blank" class="btn btn-emerald btn-lg">
+                <span>🚀 1-Click Send on WhatsApp</span>
+              </a>
+              <button class="btn btn-secondary" id="copy-text-btn">
+                <span>📋 Copy Text</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- TAB 2: Voice Note Script -->
+          <div class="tab-content" id="tab-voice">
+            <div class="voice-note-guide">
+              <span class="mic-icon">🎙️</span>
+              <p>Speak this naturally into your WhatsApp microphone. Keep a friendly, respectful, brotherly Pakistani business tone.</p>
+            </div>
+            <div class="output-bubble voice-bubble" id="output-voice-content">
+              Voice note script will appear here.
+            </div>
+            <div class="bubble-actions">
+              <button class="btn btn-secondary" id="copy-voice-btn">
+                <span>📋 Copy Voice Script</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- TAB 3: Deal Psychology -->
+          <div class="tab-content" id="tab-psychology">
+            <div class="output-bubble strategy-bubble" id="output-strategy-content">
+              Psychological rationale and tactical angle will appear here.
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
