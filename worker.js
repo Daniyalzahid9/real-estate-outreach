@@ -2,6 +2,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     
+    if (url.pathname === '/ping') return new Response('PONG');
     // Clean route for Demo Portal: /demo, /demo?1, /demo/?id=L01
     if (url.pathname === '/demo' || url.pathname === '/demo/') {
       const targetUrl = new URL('/demo/index.html' + url.search, request.url);
