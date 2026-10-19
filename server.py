@@ -406,9 +406,9 @@ def serve_stats_json():
     return FileResponse("static/stats.json")
 
 @app.get("/demo")
-@app.get("/demo.html")
+@app.get("/demo/")
 def serve_demo():
-    return FileResponse("static/demo.html")
+    return FileResponse("static/demo/index.html")
 
 if __name__ == "__main__":
     import uvicorn
